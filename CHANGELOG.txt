@@ -1,0 +1,9 @@
+# dbs-api changelog
+
+## 1.0.1 (21-05-2021)
+
+Add README.
+
+## 1.0.0 (21-05-2021)
+
+Initial release.
