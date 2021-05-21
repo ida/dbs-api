@@ -1,0 +1,20 @@
+{
+  "name": "dbs-api",
+  "version": "1.0.0",
+  "description": "An API for all the DBs.",
+  "main": "lib/db.js",
+  "author": "Ida Ebkes",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/ida/dbs-api"
+  },
+  "keywords": [
+    "db",
+    "database",
+    "api"
+  ],
+  "dependencies": {
+    "pouchdb": "^7.2.2",
+    "servile": "^1.1.3"
+  }
+}
