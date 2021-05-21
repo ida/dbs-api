@@ -1,5 +1,5 @@
-db-api
-======
+dbs-api
+=======
 
 One API for all the DBs.
 
