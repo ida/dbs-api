@@ -7,7 +7,7 @@ One API for all the DBs.
 Install
 -------
 
-    npm i db-api
+    npm i dbs-api
 
 
 And the DB you want to use, let's use PouchDB, for now:
@@ -50,7 +50,7 @@ Currently only PouchDB.
 Contact
 -------
 
-Open an issue on https://github.com/ida/db-api
+Open an issue on https://github.com/ida/dbs-api
 
 
 License
