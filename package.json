@@ -5,6 +5,9 @@
   "main": "lib/db.js",
   "author": "Ida Ebkes",
   "license": "MIT",
+  "scripts": {
+    "test": "node tests/test_dbs.js"
+  },
   "repository": {
     "url": "https://github.com/ida/dbs-api"
   },

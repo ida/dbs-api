@@ -4,7 +4,6 @@ const LOG =
 
 1; const log = (...args) => { if(LOG) console.log('\n', ...args) }
 
-const exampleEntry = { 'some': 'field', 'another': 'day' }
 
 let db, entry, entries, result;
 
@@ -16,7 +15,9 @@ async function main(dbType) {
 
   log('Added db named', db.name)
 
-  
+  if( ! db.name ) throw 'db must have a name'
+
+
 
   entries = await db.getEntries()
   
@@ -26,11 +27,11 @@ async function main(dbType) {
 
 
 
-
-  entry = await db.addEntry(exampleEntry)
+  entry = await db.addEntry({'some': 'entry'})
 
   log('Added entry:', entry)
 
+  if ( ! entry.id ) throw 'entry must have an id'
 
 
 
@@ -43,9 +44,9 @@ async function main(dbType) {
 
 
 
-  entry = await db.addEntry(exampleEntry)
+  entry = await db.addEntry({'another': 'entry'})
 
-  log('Added same entry again:', entry)
+  log('Added another entry:', entry)
 
 
 
@@ -81,20 +82,52 @@ async function main(dbType) {
 
 
 
-  delete exampleEntry.id; try {
+  try {
+  
+    result = await db.changeEntry({'no': 'id'})
 
-    await db.changeEntry(exampleEntry); throw 'Failed test!' } catch(err) {
+  }
 
-    log('Changed entry which has no id, errors correctly.')
+  catch(e) {
+
+    result = false
+
+  }
+
+  log('Changed entry which has no id, result is:', result)
+
+  if(result) throw 'changing entry without id should not give a result'
+
+
+
+
+  result = await db.getNextEntryId()
+  
+  log('Got next available entry-id, it is:', result)
+
+  if(result != 3) throw 'expected next id to be 3, got: ' + result
+
+
+
+
+  try {
+  
+    result = await db.changeEntry({'no': 'idea', 'id': result})
+
+  }
+
+  catch(e) {
+
+    result = false
 
   }
 
 
-  exampleEntry.id = await db.getNextEntryId()
+  log('Changed an entry with non-existent id, result is:', result)
 
-  result = await db.changeEntry(exampleEntry)
+  if(result) throw 'changing entry with non-existing id should not give a result'
 
-  log('Changed an entry with non-existent id, will be added anyways, result is:', result)
+
 
 
 
@@ -102,16 +135,26 @@ async function main(dbType) {
 
   log('Got next available entryId:', result)
 
+  if(result != 3) throw 'expected next id to be 3, got: ' + result
+
+
 
   entries = await db.getEntries()
   
   log('There are', entries.length, 'entries.')
+  
+  if(entries.length !== 2) throw 'expected 2 entries, got: ' + entries.length
+
+
+
 
 
 
   result = await db.entriesToHtml()
 
   log('Ran entriesToHtml, result\'s length is:', result.length)
+
+  if(typeof result !== 'string' | result.length < 9) throw 'something is wrong with entriesToHtml'
 
 
 
@@ -121,10 +164,16 @@ async function main(dbType) {
 
   if( ! result ) throw 'Could not delete entry!'
 
-  
+
+
+
   entries = await db.getEntries()
   
   log('There are', entries.length, 'entries.')
+  
+  if(entries.length !== 1) throw 'expected 1 entries, got: ' + entries.length
+
+
 
 
 
@@ -132,7 +181,7 @@ async function main(dbType) {
 
   log('Deleted non-existent entry, result is:', result)
 
-  if(result) throw 'Got a result: ' + result
+  if(result) throw 'deleting non-existent entry should not give a result, we got: ' + result
 
 
 
@@ -159,7 +208,7 @@ async function main(dbType) {
 
   log('Checked, if entry with id "mickeymouse" exists, result is:', result)
 
-  if(result) throw 'Got a result: ' + result
+  if(result) throw 'should not give a result, got: ' + result
 
 
 
@@ -168,7 +217,7 @@ async function main(dbType) {
   log('Deleted db.\n')
 
 
-} main(dbType).catch(e=>{console.log('test_db.js got an error:\n' + e)})
+} main(dbType).catch(e=>{console.log('\nError:', e, '\n')})
 
 
 } // testDB
