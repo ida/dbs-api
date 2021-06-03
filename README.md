@@ -20,7 +20,7 @@ Usage
 
     async function main() {
 
-        const db = require('db-api')()
+        const db = require('dbs-api')()
 
         let entry = await db.addEntry({'some': 'data'})
 
