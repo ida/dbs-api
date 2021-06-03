@@ -14,7 +14,5 @@
     "api"
   ],
   "dependencies": {
-    "pouchdb": "^7.2.2",
-    "servile": "^1.1.3"
   }
 }
