@@ -12,7 +12,7 @@ let db, entry, entries, result;
 async function main(dbType) {
 
 
-  db = require('./db')(dbType, dbType + '-dbs-api-test')
+  db = require('./../lib/db')(dbType, dbType + '-dbs-api-test')
 
   log('Added db named', db.name)
 
