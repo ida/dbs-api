@@ -1,5 +1,9 @@
 # dbs-api changelog
 
+## 1.0.2 (unreleased)
+
+Fix addEntry for pouchdb, so entry is returned.
+
 ## 1.0.1 (21-05-2021)
 
 Add README.
